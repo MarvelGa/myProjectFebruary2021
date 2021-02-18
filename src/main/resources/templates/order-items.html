@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Particular Order</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div th:replace="header"></div>
+    <h2>Your Particular Order</h2>
+    <br>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Order ID</th>
+            <th>Products total Price</th>
+            <th>Product Name</th>
+            <th>Products Quantity</th>
+            <th>Order Created Date</th>
+            <th colspan="2">Operations</th>
+        </tr>
+        <tr th:each="orderItem, iStat: ${orderItems}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${orderItem.order.getId()}"/>
+            <td th:text="${orderItem.product.getPrice()} * ${orderItem.quantity}"/>
+            <td th:text="${orderItem.product.getName()}"/>
+            <td th:text="${orderItem.quantity}"/>
+            <td th:text="${orderItem.order.getCreatedAt()}"/>
+            <td>
+                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}/view|}">Edit Product</a>
+            </td>
+
+            <td>
+                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}/view/${orderItem.product.id}|}">Delete
+                    this Product from Order</a>
+            </td>
+        </tr>
+
+        <tr>
+        </tr>
+        <tr>
+            <th></th>
+            <th>Order Total Price:</th>
+            <th th:text="${totalPrice}"/>
+            </th>
+            <th colspan="7"/>
+            </th>
+        </tr>
+
+        </br>
+        </br>
+
+    </table>
+
+    </br>
+    </br>
+
+    <table border="0">
+        <div action="#" th:if="${orderItem}">
+            <tr>
+
+                <th th:style="'background-color: #ff6347'">
+                    <form action="#" th:action="@{|/order/delete/${orderItem.getOrder().id}|}" th:object="${orderItem}"
+                          method="get">
+                        <input type="submit" value="Delete Order">
+                    </form>
+                </th>
+
+                <th></th>
+                <th></th>
+                <th></th>
+
+                <th th:style="'background-color: #228b22'">
+                    <form action="#" th:action="@{|/order/${orderItem.order.id}/add/${orderItem.product.id}|}"
+                          th:object="${orderItem}" method="get">
+                        <input type="submit" value="Add one more product to Your Order">
+                    </form>
+                </th>
+
+            </tr>
+        </div>
+        <div  th:unless="${orderItem}">
+            <a th:href="@{/products}">Go to Products page</a>
+        </div>
+
+    </table>
+
+
+    </br>
+    </br>
+    </br>
+    <a th:href="@{/orders}">See All Orders</a>
+
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

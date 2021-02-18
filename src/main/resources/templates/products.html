@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Products</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div th:replace="header"></div>
+    <h2>List of Products</h2>
+
+    <table>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td>
+                <form action="#" th:action="@{/create-product}" method="get">
+                    <input type="submit" value="Create Product">
+                </form>
+            </td>
+            <td>
+                <form action="#" th:action="@{/products/delete/all}" method="get">
+                    <input type="submit" value="Delete All Products">
+                </form>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+    </table>
+
+    <br>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Product Status</th>
+            <th>Time of create</th>
+            <th colspan="2">Operations</th>
+            <th>Order</th>
+        </tr>
+        <tr th:each="product, iStat: ${products}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${product.id}"/>
+            <td>
+                <a th:href="@{|/products/${product.id}|}" th:text="${product.name}"/>
+            </td>
+            <td>
+                <a th:text="${product.price}"/>
+            </td>
+            <td>
+                <a th:text="${product.getStatus()}"/>
+            </td>
+            <td>
+                <a th:text="${product.getCreatedAt()}"/>
+            </td>
+
+            <td>
+                <a th:href="@{|/products/edit/${product.id}|}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{|/products/delete/${product.id}|}">Delete</a>
+            </td>
+            <td>
+                <form action="#" th:action="@{/create-order/add/{product_id}(product_id=${product.id})}" method="get">
+                    <input type="submit" value="Add Product/Create order">
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

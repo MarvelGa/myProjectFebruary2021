@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Orders</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div th:replace="header"></div>
+    <h2>List of Orders</h2>
+    <br>
+    <form action="#" th:action="@{/products}" method="get">
+        <input type="submit" value="Create New Order">
+    </form>
+    <br>
+    <p>Sort by (quantity): <a href="/orders/sort=asc">ascending</a> | <a href="/orders/sort=desc">descending</a> | <a
+            href="/orders">non sorting</a></p>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Order ID</th>
+            <th>Products total Price</th>
+            <th>Product Name</th>
+            <th>Products Quantity</th>
+            <th>Order Created Date</th>
+            <th colspan="5">Operations</th>
+        </tr>
+        <tr th:each="orderItem, iStat: ${orders}">
+            <td th:text="${iStat.index + 1}"/>
+            <td th:text="${orderItem.order.getId()}"/>
+            <td th:text="${orderItem.product.getPrice()} * ${orderItem.quantity}"/>
+            <td th:text="${orderItem.product.getName()}"/>
+            <td th:text="${orderItem.quantity}"/>
+            <td th:text="${orderItem.order.getCreatedAt()}"/>
+
+            <td>
+                <a th:href="@{|/orders/${orderItem.order.id}/edit/${orderItem.product.id}|}">Edit this Product</a>
+            </td>
+
+            <td>
+                <a th:href="@{|/orders/${orderItem.order.id}|}">Open/Edit Order</a>
+            </td>
+
+            <td>
+                <a th:href="@{|/orders/delete/${orderItem.id}|}">Delete this Product from Order</a>
+            </td>
+
+            <td>
+                <a th:href="@{|/orders/${orderItem.id}/delete/${orderItem.order.id}|}">Delete Particular Order</a>
+            </td>
+            <td>
+                <a th:href="@{|/order/${orderItem.order.id}/add/${orderItem.product.id}|}">Add one more product to Order</a>
+            </td>
+        </tr>
+
+
+
+    </table>
+    <br>
+    <a th:href="@{/products}">Go to Products page</a>
+
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

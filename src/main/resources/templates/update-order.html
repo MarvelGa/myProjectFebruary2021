@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit existing Order</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div th:replace="header"></div>
+    <h2>Edit existing Product of Order</h2>
+    <form th:object="${orderItem}" method="post">
+        <table border="1">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+            </tr>
+            <tr th:each="orderItem, iStat: ${orderItem}">
+                <td>
+                    <input type="text" th:field="*{product.name}" id="name" th:value="*{product.name}" disabled/>
+                </td>
+
+                <td>
+                    <input type="text" th:field="*{product.price}" id="price" th:value="*{product.price}" disabled/>
+                </td>
+            <tr>
+
+            </tr>
+
+            <table>
+
+                <tr>
+                    <td>
+                        <label for="quantity">Quantity</label>
+                    </td>
+                    <td>
+                        <select th:field="*{quantity}" id="quantity">
+                            <option value="1" selected="selected">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Edit Order"/>
+                </td>
+            </tr>
+
+        </table>
+        <input type="hidden" name="name" th:value="*{product.name}">
+        <input type="hidden" name="price" th:value="*{product.price}">
+    </form>
+    <br>
+    <a th:href="@{/orders}">Go to Orders page</a>
+
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>

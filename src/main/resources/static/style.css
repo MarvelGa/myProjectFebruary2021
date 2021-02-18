@@ -1,0 +1,22 @@
+#footer {
+    overflow: hidden;
+    width: 940px;
+    height: 100px;
+    margin: 0px auto;
+}
+#footer p {
+    margin: 0px;
+    padding: 40px 0px 0px 0px;
+    text-align: center;
+    font-size: 12px;
+}
+
+body {
+    background: #eee;
+}
+
+#content {
+    float: right;
+    width: 530px;
+    color: #ff6347
+}

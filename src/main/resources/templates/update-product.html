@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit existing Product</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<center>
+    <div th:replace="header"></div>
+    <h2>Edit existing Product</h2>
+    <form th:object="${product}" method="post">
+        <table>
+            <tr>
+                <td>
+                    <label for="id">Id:</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{id}" id="id" th:value="*{id}" disabled/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="name">Name:</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{name}" id="name" th:value="*{name}"/>
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="price">Price:</label>
+                </td>
+                <td>
+                    <input type="text" th:field="*{price}" id="price" th:value="*{price}"/>
+                </td>
+                <td>
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="status">Status:</label>
+                </td>
+                <td>
+
+                    <select th:field="*{status}">
+                        <option th:each="status : ${T(com.hybris.ciklum.model.Product.ProductsStatus).values()}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${status}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Update"/>
+                    <input type="reset" value="Clear"/>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" th:value="*{id}">
+    </form>
+    <br>
+    <a th:href="@{/products}">Go to Products page</a>
+
+    </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+    <div id="footer" th:insert="~{fragments/footer :: footer}"></div>
+</center>
+</body>
+</html>
